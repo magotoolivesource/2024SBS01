@@ -7,6 +7,7 @@ public class EnemyNavMesh : MonoBehaviour
 {
     public Transform Target;
     protected NavMeshAgent m_LinkNavMesh = null;
+
     void Start()
     {
         m_LinkNavMesh = GetComponent<NavMeshAgent>();
