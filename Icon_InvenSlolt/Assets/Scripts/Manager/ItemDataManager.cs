@@ -82,6 +82,7 @@ public class ItemDataManager : MonoBehaviour
         m_ItemTableDataList.Add(tabledata);
         m_ItemTableDataList.Add(tabledata2);
         m_ItemTableDataList.Add(tabledata3);
+        m_ItemTableDataList.Add(tabledata4);
 
         foreach (var item in m_ItemTableDataList)
         {

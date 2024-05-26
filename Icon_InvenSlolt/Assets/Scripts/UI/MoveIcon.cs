@@ -21,15 +21,29 @@ public class MoveIcon : MonoBehaviour
     [SerializeField]
     protected Image m_LinkImg;
 
-    public void BeginDrag(E_ItemType p_itemtype)
+    public void BeginDrag(int p_playeritemat)
     {
         gameObject.SetActive(true);
-        SetItem(p_itemtype);
+        //SetItem(p_itemtype);
+
+        SetItemAt(p_playeritemat);
     }
 
     public void EndDrag()
     {
         gameObject.SetActive(false);
+    }
+
+
+    public int ItemAt = -1;
+    protected PlayerItemTableData m_LinkItemTable = null;
+    void SetItemAt(int p_playeritemat)
+    {
+        ItemAt = p_playeritemat;
+        m_LinkItemTable = PlayerItemDataManager.Instance.GetItemAt(ItemAt);
+
+        m_ItemType = m_LinkItemTable.ItemTypeID;
+        m_LinkImg.sprite = m_LinkItemTable.SpriteImg;
     }
 
     void SetItem(E_ItemType p_itemtype)

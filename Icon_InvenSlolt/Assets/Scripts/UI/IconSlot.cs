@@ -26,8 +26,15 @@ public class IconSlot : MonoBehaviour
             m_IconImage = GetComponentInChildren<Image>();
 
         m_ItemCountText = GetComponentInChildren<Text>();
-        // 테스트 코드
-        SetIcon( m_ItemID );
+
+        if( true)
+        {
+            // 테스트 코드
+            //SetIcon( m_ItemID );
+
+            SetPlayerItemAt(m_PlayerItemListAt);
+        }
+        
     }
 
 
@@ -51,7 +58,9 @@ public class IconSlot : MonoBehaviour
             return;
         }
 
-
+        m_IconImage.gameObject.SetActive(true);
+        m_IconImage.sprite = m_LinkItemData.SpriteImg;
+        m_ItemCountText.text = $"{m_LinkItemData.ItemCount}";
     }
 
 
@@ -108,12 +117,16 @@ public class IconSlot : MonoBehaviour
         MoveIcon icon = eventData.selectedObject.GetComponent<MoveIcon>();
         IconSlot slot = eventData.pointerDrag.GetComponent<IconSlot>();
 
-        E_ItemType itemtype = this.m_ItemID;
-        // 치환이되었고
-        this.SetIcon(icon.ItemType);
+        //E_ItemType itemtype = this.m_ItemID;
+        //// 치환이되었고
+        //this.SetIcon(icon.ItemType);
 
-        // 치환하기
-        slot.SetIcon(itemtype);
+        //// 치환하기
+        //slot.SetIcon(itemtype);
+
+        int prevat = this.m_PlayerItemListAt;
+        this.SetPlayerItemAt(slot.m_PlayerItemListAt);
+        slot.SetPlayerItemAt(prevat);
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -132,7 +145,8 @@ public class IconSlot : MonoBehaviour
         
         m_ISDrag = true;
         m_LinkMove = ItemDataManager.GetInstance.MoveIcon;
-        m_LinkMove.BeginDrag(m_ItemID);
+        //m_LinkMove.BeginDrag(m_ItemID);
+        m_LinkMove.BeginDrag(this.m_PlayerItemListAt);
 
         eventData.selectedObject = m_LinkMove.gameObject;
 

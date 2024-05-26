@@ -52,9 +52,18 @@ public class PlayerItemDataManager : SingletonT<PlayerItemDataManager>
         if(item == null)
         {
             ItemTableData tabledata = ItemDataManager.GetInstance.GetItemData(p_itemtype);
-            item = new PlayerItemTableData(tabledata);
-            m_PlayerItemTableDataList.Add(item);
+            if(tabledata != null)
+            {
+                item = new PlayerItemTableData(tabledata);
+                m_PlayerItemTableDataList.Add(item);
+            }
+            else
+            {
+                Debug.LogError($"아이템 값 이상함 : {p_itemtype}");
+                return;
+            }
         }
+
         item.ItemCount += 1;
         
     }
