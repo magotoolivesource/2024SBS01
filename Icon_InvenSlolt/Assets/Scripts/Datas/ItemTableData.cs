@@ -13,7 +13,7 @@ public enum E_ItemType
     Bread,
 
 
-    EquipType = 1000,
+    Equipment = 1000,
     Bag,
 
     Max = 99999999

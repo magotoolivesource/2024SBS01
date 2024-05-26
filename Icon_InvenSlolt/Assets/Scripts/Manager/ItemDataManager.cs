@@ -68,6 +68,12 @@ public class ItemDataManager : MonoBehaviour
             ItemName = "»§",
             SpritePath = $"{prevresouceitem}/{E_ItemType.Food}/{E_ItemType.Bread}"
         };
+        ItemTableData tabledata4 = new ItemTableData()
+        {
+            ItemTypeID = E_ItemType.Bag,
+            ItemName = "°¡¹æ",
+            SpritePath = $"{prevresouceitem}/{E_ItemType.Equipment}/{E_ItemType.Bag}"
+        };
 
 
         //Sprite sprite = Resources.Load<Sprite>("Pixel Art Icon Pack - RPG/Food/Apple");

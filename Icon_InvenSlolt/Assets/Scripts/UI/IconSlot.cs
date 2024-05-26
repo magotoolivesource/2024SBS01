@@ -25,12 +25,44 @@ public class IconSlot : MonoBehaviour
         if(m_IconImage == null)
             m_IconImage = GetComponentInChildren<Image>();
 
+        m_ItemCountText = GetComponentInChildren<Text>();
         // 테스트 코드
         SetIcon( m_ItemID );
     }
 
+
+    [SerializeField]
+    int m_PlayerItemListAt = -1;
+    PlayerItemTableData m_LinkItemData = null;
+
+    public void SetPlayerItemAt(int p_at)
+    {
+        m_PlayerItemListAt = p_at;
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        m_LinkItemData = PlayerItemDataManager.Instance.GetItemAt(m_PlayerItemListAt);
+
+        if(m_LinkItemData == null)
+        {
+            m_IconImage.gameObject.SetActive(false);
+            return;
+        }
+
+
+    }
+
+
+
     [SerializeField]
     E_ItemType m_ItemID;
+    [SerializeField]
+    Text m_ItemCountText = null;
+    //public int ItemCount = 1;
+
+
     [SerializeField]
     protected ItemTableData m_LinkTableData = null;
     public void SetIcon( E_ItemType p_id )
@@ -47,6 +79,8 @@ public class IconSlot : MonoBehaviour
         //ItemTableData itemdata = ItemDataManager.GetInstance.GetItemData(p_id);
         m_LinkTableData = ItemDataManager.GetInstance.GetItemData(p_id);
         m_IconImage.sprite = m_LinkTableData.SpriteImg;// p_sprite;
+
+        m_ItemCountText.text = "1";
 
     }
 
@@ -65,13 +99,27 @@ public class IconSlot : MonoBehaviour
 
     public void OnDrop(PointerEventData eventData)
     {
+        if (eventData.selectedObject == null)
+            return;
+        
+
         Debug.Log( $"드랍 : {this.name}, {eventData.pointerDrag.name }, {eventData.selectedObject.name}");
 
         MoveIcon icon = eventData.selectedObject.GetComponent<MoveIcon>();
         IconSlot slot = eventData.pointerDrag.GetComponent<IconSlot>();
+
+        E_ItemType itemtype = this.m_ItemID;
+        // 치환이되었고
+        this.SetIcon(icon.ItemType);
+
+        // 치환하기
+        slot.SetIcon(itemtype);
     }
     public void OnDrag(PointerEventData eventData)
     {
+        if (m_ItemID == E_ItemType.None)
+            return;
+
         Debug.Log("드래그 ");
 
         m_LinkMove.transform.position = Input.mousePosition;
@@ -97,7 +145,7 @@ public class IconSlot : MonoBehaviour
         //m_LinkMove = ItemDataManager.GetInstance.MoveIcon;
         m_LinkMove.EndDrag();
         m_LinkMove = null;
-        Debug.Log("드래그 끝 ");
+        Debug.Log( $"드래그 끝 : {this.name}, {eventData.pointerDrag.name} ");
     }
 
     public void OnPointerUp(PointerEventData eventData)

@@ -9,6 +9,14 @@ public class MoveIcon : MonoBehaviour
     [SerializeField]
     protected E_ItemType m_ItemType;
 
+    public E_ItemType ItemType
+    {
+        get
+        {
+            return m_ItemType;
+        }
+    }
+
     [Header("[È®ÀÎ¿ë]")]
     [SerializeField]
     protected Image m_LinkImg;
