@@ -31,7 +31,11 @@ public class ItemDataManager : MonoBehaviour
     private void Awake()
     {
         //Init();
+        MoveIcon = GameObject.FindObjectOfType<MoveIcon>(true);
     }
+
+    public MoveIcon MoveIcon = null;
+
 
     [SerializeField]
     protected List<ItemTableData> m_ItemTableDataList = new List<ItemTableData>();

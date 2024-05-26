@@ -5,6 +5,8 @@ using UnityEngine;
 
 public enum E_ItemType
 {
+    None = 0,
+
     Food = 10,
     Apple,
     Beer,
@@ -14,6 +16,7 @@ public enum E_ItemType
     EquipType = 1000,
     Bag,
 
+    Max = 99999999
 }
 
 [System.Serializable]
