@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class IconSlot : MonoBehaviour
+public class BaseIconSlot : MonoBehaviour
     , IDragHandler
     , IDropHandler
     , IBeginDragHandler
@@ -13,48 +13,44 @@ public class IconSlot : MonoBehaviour
     , IPointerClickHandler
     , IPointerDownHandler
 {
-
+    [Header("[작업용]")]
     [SerializeField]
     protected Image m_IconImage = null;
 
     [SerializeField]
-    protected Canvas m_LinkCanvas = null;
-
-    [SerializeField]
     protected int m_PlayerItemListAt = -1;
+    public int PlayerItemListAt
+    {
+        get { return m_PlayerItemListAt; }
+    }
+
+    [Header("[확인용]")]
+    [SerializeField]
     protected PlayerItemTableData m_LinkItemData = null;
-
     [SerializeField]
-    protected E_ItemType m_ItemID;
-    [SerializeField]
-    protected Text m_ItemCountText = null;
-
+    protected Canvas m_LinkCanvas = null;
+    //[SerializeField]
+    //protected E_ItemType m_ItemID;
     [SerializeField]
     protected ItemTableData m_LinkTableData = null;
 
 
+    protected bool m_ISinit = false;
     protected virtual void InitAwake()
     {
-        Debug.Log("아이콘슬롯 : Awake");
+        if (m_ISinit)
+            return;
+
+        m_ISinit = true;
+
+        //Debug.Log("아이콘슬롯 : Awake");
 
         if (m_IconImage == null)
             m_IconImage = GetComponentInChildren<Image>();
 
-
-        m_ItemCountText = GetComponentInChildren<Text>();
-
-
-        //GameObject.FindObjectOfType<Canvas>();
         m_LinkCanvas = GetComponentInParent<Canvas>();
-        //m_LinkCanvas.renderMode
 
-        if (true)
-        {
-            // 테스트 코드
-            //SetIcon( m_ItemID );
-
-            SetPlayerItemAt(m_PlayerItemListAt);
-        }
+        SetPlayerItemAt(m_PlayerItemListAt);
     }
 
     protected virtual void Awake()
@@ -85,7 +81,6 @@ public class IconSlot : MonoBehaviour
 
         m_IconImage.gameObject.SetActive(true);
         m_IconImage.sprite = m_LinkItemData.SpriteImg;
-        m_ItemCountText.text = $"{m_LinkItemData.ItemCount}";
     }
 
 
@@ -93,20 +88,20 @@ public class IconSlot : MonoBehaviour
 
     public virtual void SetIcon( E_ItemType p_id )
     {
-        m_ItemID = p_id;
+        //m_ItemID = p_id;
 
-        if( m_ItemID == E_ItemType.None)
-        {
-            m_IconImage.gameObject.SetActive(false);
-            return;
-        }
+        //if( m_ItemID == E_ItemType.None)
+        //{
+        //    m_IconImage.gameObject.SetActive(false);
+        //    return;
+        //}
 
         m_IconImage.gameObject.SetActive(true);
         //ItemTableData itemdata = ItemDataManager.GetInstance.GetItemData(p_id);
         m_LinkTableData = ItemDataManager.GetInstance.GetItemData(p_id);
         m_IconImage.sprite = m_LinkTableData.SpriteImg;// p_sprite;
 
-        m_ItemCountText.text = "1";
+        //m_ItemCountText.text = "1";
 
     }
 
@@ -124,7 +119,7 @@ public class IconSlot : MonoBehaviour
         Debug.Log( $"드랍 : {this.name}, {eventData.pointerDrag.name }, {eventData.selectedObject.name}");
 
         MoveIcon icon = eventData.selectedObject.GetComponent<MoveIcon>();
-        IconSlot slot = eventData.pointerDrag.GetComponent<IconSlot>();
+        BaseIconSlot slot = eventData.pointerDrag.GetComponent<BaseIconSlot>();
 
         //E_ItemType itemtype = this.m_ItemID;
         //// 치환이되었고
@@ -137,10 +132,11 @@ public class IconSlot : MonoBehaviour
         this.SetPlayerItemAt(slot.m_PlayerItemListAt);
         slot.SetPlayerItemAt(prevat);
     }
+
     public virtual void OnDrag(PointerEventData eventData)
     {
-        if (m_ItemID == E_ItemType.None)
-            return;
+        //if (m_ItemID == E_ItemType.None)
+        //    return;
 
         Debug.Log("드래그 ");
 
@@ -168,8 +164,8 @@ public class IconSlot : MonoBehaviour
     }
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
-        if (m_ItemID == E_ItemType.None)
-            return;
+        //if (m_ItemID == E_ItemType.None)
+        //    return;
 
         
         m_ISDrag = true;

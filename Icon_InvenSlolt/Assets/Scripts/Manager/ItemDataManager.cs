@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,17 @@ public class ItemDataManager : MonoBehaviour
         new Dictionary<E_ItemType, ItemTableData>();
 
 
+
+    public string GetItemType2ResoucePath(E_ItemType type)
+    {
+        //{ E_ItemType.Food}/{ E_ItemType.Apple}
+        //E_ItemType.Apple // 1001
+        //E_ItemType.Belt // 2002
+
+        E_ItemType GroupItemType = (E_ItemType)((int)((int)type / 1000) * 1000);
+        return $"Pixel Art Icon Pack - RPG/{GroupItemType}/{type}";
+    }
+
     public void Init()
     {
         m_ItemTableDataList.Clear();
@@ -54,25 +66,32 @@ public class ItemDataManager : MonoBehaviour
         {
             ItemTypeID = E_ItemType.Apple,
             ItemName = "사과",
-            SpritePath = $"{prevresouceitem}/{E_ItemType.Food}/{E_ItemType.Apple}"
+            SpritePath = $"{prevresouceitem}/{E_ItemType.Food}/{E_ItemType.Apple}",
+            ItemCategory = E_ItemCategory.UseItem,
+            
         };
         ItemTableData tabledata2 = new ItemTableData()
         {
             ItemTypeID = E_ItemType.Beer,
             ItemName = "맥주",
-            SpritePath = $"{prevresouceitem}/{E_ItemType.Food}/{E_ItemType.Beer}"
+            SpritePath = $"{prevresouceitem}/{E_ItemType.Food}/{E_ItemType.Beer}",
+            ItemCategory = E_ItemCategory.UseItem,
+            ItemEquipType = 0,
         };
         ItemTableData tabledata3 = new ItemTableData()
         {
             ItemTypeID = E_ItemType.Bread,
             ItemName = "빵",
-            SpritePath = $"{prevresouceitem}/{E_ItemType.Food}/{E_ItemType.Bread}"
+            SpritePath = $"{prevresouceitem}/{E_ItemType.Food}/{E_ItemType.Bread}",
+            ItemCategory = E_ItemCategory.UseItem,
         };
+
         ItemTableData tabledata4 = new ItemTableData()
         {
             ItemTypeID = E_ItemType.Bag,
             ItemName = "가방",
-            SpritePath = $"{prevresouceitem}/{E_ItemType.Equipment}/{E_ItemType.Bag}"
+            SpritePath = $"{prevresouceitem}/{E_ItemType.Equipment}/{E_ItemType.Bag}",
+            ItemCategory = E_ItemCategory.UseItem,
         };
 
 
@@ -84,6 +103,29 @@ public class ItemDataManager : MonoBehaviour
         m_ItemTableDataList.Add(tabledata3);
         m_ItemTableDataList.Add(tabledata4);
 
+
+        // 
+        foreach (var item in Enum.GetValues(typeof(E_ItemType)))
+        {
+            E_ItemType itemtype = (E_ItemType)item;
+            int id = (int)itemtype;
+            if ( itemtype >= E_ItemType.Belt
+                && (id % 1000) != 0 
+                && itemtype < E_ItemType.Max )
+            {
+                ItemTableData temptabledata = new ItemTableData()
+                {
+                    ItemTypeID = itemtype,
+                    ItemName = itemtype.ToString(),
+                    SpritePath = this.GetItemType2ResoucePath(itemtype),
+                    ItemCategory = E_ItemCategory.UseItem,
+                    ItemEquipType = 0,
+                };
+
+                m_ItemTableDataList.Add(temptabledata);
+            }
+        }
+
         foreach (var item in m_ItemTableDataList)
         {
             item.InitSetting();
@@ -91,6 +133,12 @@ public class ItemDataManager : MonoBehaviour
             m_ItemTableDataDict.Add(item.ItemTypeID, item);
         }
 
+
+        // 세팅 부분
+        m_ItemTableDataDict[E_ItemType.Helm].ItemCategory = E_ItemCategory.Equip;
+        m_ItemTableDataDict[E_ItemType.Helm].ItemEquipType = E_EquipType.Helm;
+
+        
     }
 
     [ContextMenu("[초기화 하기]")]
