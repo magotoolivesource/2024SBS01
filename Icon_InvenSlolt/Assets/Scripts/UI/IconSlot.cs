@@ -20,14 +20,22 @@ public class IconSlot : MonoBehaviour
     [SerializeField]
     protected Image m_IconImage = null;
 
+    [SerializeField]
+    protected Canvas m_LinkCanvas = null;
     private void Awake()
     {
         if(m_IconImage == null)
             m_IconImage = GetComponentInChildren<Image>();
 
+        
         m_ItemCountText = GetComponentInChildren<Text>();
 
-        if( true)
+
+        //GameObject.FindObjectOfType<Canvas>();
+        m_LinkCanvas = GetComponentInParent<Canvas>();
+        //m_LinkCanvas.renderMode
+
+        if ( true)
         {
             // 테스트 코드
             //SetIcon( m_ItemID );
@@ -135,7 +143,27 @@ public class IconSlot : MonoBehaviour
 
         Debug.Log("드래그 ");
 
-        m_LinkMove.transform.position = Input.mousePosition;
+        Camera cam = m_LinkCanvas.worldCamera;
+        if (cam == null 
+            || m_LinkCanvas.renderMode == RenderMode.ScreenSpaceOverlay
+            )
+            m_LinkMove.transform.position = Input.mousePosition;
+        else
+        {
+
+            // 화면 카메라모드일시 사용되는 방법
+            Vector3 wpos;
+            RectTransform recttrans = GetComponent<RectTransform>();
+            if(RectTransformUtility.ScreenPointToWorldPointInRectangle(recttrans
+                , Input.mousePosition
+                , cam
+                , out wpos))
+            {
+                m_LinkMove.transform.position = wpos;
+            }
+
+
+        }
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
