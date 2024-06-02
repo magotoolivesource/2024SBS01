@@ -7,15 +7,9 @@ using UnityEngine;
 public class PlayerItemTableData : ItemTableData
 {
 
-    public PlayerItemTableData(ItemTableData p_itemtable)
+    public PlayerItemTableData(ItemTableData p_itemtable) : base(p_itemtable)
     {
-        ID = p_itemtable.ID;
-        ItemTypeID = p_itemtable.ItemTypeID;
-        ItemName = p_itemtable.ItemName;
-        ItemDescript = p_itemtable.ItemDescript;
-
-        SpritePath = p_itemtable.SpritePath;
-        SpriteImg = p_itemtable.SpriteImg;
+        
     }
     //public ItemTableData m_LinkTableData;
     public int ItemCount = 0;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 
 public class ItemDataManager : MonoBehaviour
@@ -15,11 +16,9 @@ public class ItemDataManager : MonoBehaviour
         {
             if(m_Instance == null)
             {
-                //m_Instance = new ItemDataManager();
-
-
                 GameObject obj = new GameObject();
                 m_Instance = obj.AddComponent<ItemDataManager>();
+                m_Instance.name = "Singltton_ItemDataMaanger1";
                 m_Instance.Init();
             }
 
@@ -134,11 +133,53 @@ public class ItemDataManager : MonoBehaviour
         }
 
 
-        // 세팅 부분
-        m_ItemTableDataDict[E_ItemType.Helm].ItemCategory = E_ItemCategory.Equip;
-        m_ItemTableDataDict[E_ItemType.Helm].ItemEquipType = E_EquipType.Helm;
+        //// 세팅 부분
+        //m_ItemTableDataDict[E_ItemType.Helm].ItemCategory = E_ItemCategory.Equip;
+        //m_ItemTableDataDict[E_ItemType.Helm].ItemEquipType = E_EquipType.Helm;
 
-        
+        // 타입들 강제 세팅
+        ItemTableData data = null;
+        // Equip 타입들
+        GetItemDataDict(E_ItemType.Belt)?.SetItemCategory(E_ItemCategory.Equip);// ItemCategory = E_ItemCategory.Equip;
+        GetItemDataDict(E_ItemType.Belt)?.SetEquip(E_EquipType.Belt);
+
+        data = GetItemDataDict(E_ItemType.Helm);
+        data?.SetItemCategory(E_ItemCategory.Equip);
+        data?.SetEquip(E_EquipType.Helm);
+
+        data = GetItemDataDict(E_ItemType.Iron_Armor);
+        data?.SetItemCategory(E_ItemCategory.Equip);
+        data?.SetEquip(E_EquipType.Armor);
+
+        data = GetItemDataDict(E_ItemType.Iron_Boot);
+        data?.SetItemCategory(E_ItemCategory.Equip);
+        data?.SetEquip(E_EquipType.Boot);
+
+        // 무기형
+        data = GetItemDataDict(E_ItemType.Arrow);
+        data?.SetItemCategory(E_ItemCategory.Weapon);
+        data?.SetItemWeaponType(E_WeaponType.Arrow);
+
+        data = GetItemDataDict(E_ItemType.Axe);
+        data?.SetItemCategory(E_ItemCategory.Weapon);
+        data?.SetItemWeaponType(E_WeaponType.Axe);
+
+        data = GetItemDataDict(E_ItemType.Bow);
+        data?.SetItemCategory(E_ItemCategory.Weapon);
+        data?.SetItemWeaponType(E_WeaponType.Bow);
+
+        data = GetItemDataDict(E_ItemType.Golden_Sword);
+        data?.SetItemCategory(E_ItemCategory.Weapon);
+        data?.SetItemWeaponType(E_WeaponType.Sword);
+
+        data = GetItemDataDict(E_ItemType.Hammer);
+        data?.SetItemCategory(E_ItemCategory.Weapon);
+        data?.SetItemWeaponType(E_WeaponType.Hammer);
+
+        data = GetItemDataDict(E_ItemType.Iron_Shield);
+        data?.SetItemCategory(E_ItemCategory.Weapon);
+        data?.SetItemWeaponType(E_WeaponType.Shield);
+
     }
 
     [ContextMenu("[초기화 하기]")]
@@ -148,6 +189,15 @@ public class ItemDataManager : MonoBehaviour
 
     }
 
+    public ItemTableData GetItemDataDict(E_ItemType p_itemtype)
+    {
+        if( m_ItemTableDataDict.ContainsKey(p_itemtype) )
+        {
+            return m_ItemTableDataDict[p_itemtype];
+        }
+
+        return null;
+    }
     public ItemTableData GetItemData(E_ItemType p_itemtype)
     {
         foreach (var item in m_ItemTableDataList)

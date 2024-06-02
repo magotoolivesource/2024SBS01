@@ -108,7 +108,7 @@ public class BaseIconSlot : MonoBehaviour
 
     [SerializeField]
     protected MoveIcon m_LinkMove = null;
-    bool m_ISDrag = false;
+    protected bool m_ISDrag = false;
 
     public virtual void OnDrop(PointerEventData eventData)
     {

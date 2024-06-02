@@ -1,9 +1,15 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class EquipSlot : BaseIconSlot
 {
+    [Header("[확장 작업용]")]
+    public E_ItemCategory ItemCategory;
+
+    public E_EquipType EquipType;
+    public E_WeaponType WeaponType;
 
     protected override void InitAwake()
     {
@@ -15,6 +21,17 @@ public class EquipSlot : BaseIconSlot
         base.InitAwake();
     }
 
+
+    protected bool ISWeaponType(E_WeaponType p_weaponitem)
+    {
+        int outval = ((int)WeaponType & (int)p_weaponitem);
+        if( outval == (int)p_weaponitem)
+        {
+            return true;
+        }
+
+        return false;
+    }
     public override void OnDrop(PointerEventData eventData)
     {
         if (eventData.selectedObject == null)
@@ -34,7 +51,27 @@ public class EquipSlot : BaseIconSlot
         }
 
 
-        base.OnDrop(eventData);
+        if(m_LinkItemData.ItemCategory != ItemCategory)
+        {
+            return;
+        }
+
+        if(m_LinkItemData.ItemCategory == E_ItemCategory.Equip )
+        {
+            if(m_LinkItemData.ItemEquipType == EquipType)
+            {
+                base.OnDrop(eventData);
+            }
+        }
+        else if(m_LinkItemData.ItemCategory == E_ItemCategory.Weapon)
+        {
+            if( ISWeaponType(m_LinkItemData.ItemWeaponType) )
+            {
+                base.OnDrop(eventData);
+            }
+        }
+
+
 
     }
 
