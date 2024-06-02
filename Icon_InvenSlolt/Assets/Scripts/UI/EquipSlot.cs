@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class IconSlot : MonoBehaviour
+public class EquipSlot : MonoBehaviour
     , IDragHandler
     , IDropHandler
     , IBeginDragHandler
@@ -19,29 +17,14 @@ public class IconSlot : MonoBehaviour
 
     [SerializeField]
     protected Canvas m_LinkCanvas = null;
-
-    [SerializeField]
-    protected int m_PlayerItemListAt = -1;
-    protected PlayerItemTableData m_LinkItemData = null;
-
-    [SerializeField]
-    protected E_ItemType m_ItemID;
-    [SerializeField]
-    protected Text m_ItemCountText = null;
-
-    [SerializeField]
-    protected ItemTableData m_LinkTableData = null;
-
-
-    protected virtual void InitAwake()
+    private void Awake()
     {
-        Debug.Log("아이콘슬롯 : Awake");
-
         if (m_IconImage == null)
             m_IconImage = GetComponentInChildren<Image>();
 
 
         m_ItemCountText = GetComponentInChildren<Text>();
+        m_ItemCountText.gameObject.SetActive(false);
 
 
         //GameObject.FindObjectOfType<Canvas>();
@@ -55,29 +38,25 @@ public class IconSlot : MonoBehaviour
 
             SetPlayerItemAt(m_PlayerItemListAt);
         }
-    }
-
-    protected virtual void Awake()
-    {
-        InitAwake();
-
 
     }
 
 
+    [SerializeField]
+    int m_PlayerItemListAt = -1;
+    PlayerItemTableData m_LinkItemData = null;
 
-
-    public virtual void SetPlayerItemAt(int p_at)
+    public void SetPlayerItemAt(int p_at)
     {
         m_PlayerItemListAt = p_at;
         UpdateUI();
     }
 
-    public virtual void UpdateUI()
+    public void UpdateUI()
     {
         m_LinkItemData = PlayerItemDataManager.Instance.GetItemAt(m_PlayerItemListAt);
 
-        if(m_LinkItemData == null)
+        if (m_LinkItemData == null)
         {
             m_IconImage.gameObject.SetActive(false);
             return;
@@ -85,17 +64,30 @@ public class IconSlot : MonoBehaviour
 
         m_IconImage.gameObject.SetActive(true);
         m_IconImage.sprite = m_LinkItemData.SpriteImg;
-        m_ItemCountText.text = $"{m_LinkItemData.ItemCount}";
+
+        if(m_ItemCountText != null)
+        {
+            m_ItemCountText.text = $"{m_LinkItemData.ItemCount}";
+        }
+            
     }
 
 
 
+    [SerializeField]
+    E_ItemType m_ItemID;
+    [SerializeField]
+    Text m_ItemCountText = null;
+    //public int ItemCount = 1;
 
-    public virtual void SetIcon( E_ItemType p_id )
+
+    [SerializeField]
+    protected ItemTableData m_LinkTableData = null;
+    public void SetIcon(E_ItemType p_id)
     {
         m_ItemID = p_id;
 
-        if( m_ItemID == E_ItemType.None)
+        if (m_ItemID == E_ItemType.None)
         {
             m_IconImage.gameObject.SetActive(false);
             return;
@@ -111,33 +103,36 @@ public class IconSlot : MonoBehaviour
     }
 
 
+
+    void Update()
+    {
+
+    }
+
+
+
     [SerializeField]
     protected MoveIcon m_LinkMove = null;
     bool m_ISDrag = false;
 
-    public virtual void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData)
     {
         if (eventData.selectedObject == null)
             return;
-        
 
-        Debug.Log( $"드랍 : {this.name}, {eventData.pointerDrag.name }, {eventData.selectedObject.name}");
+
+        Debug.Log($"드랍 : {this.name}, {eventData.pointerDrag.name}, {eventData.selectedObject.name}");
 
         MoveIcon icon = eventData.selectedObject.GetComponent<MoveIcon>();
         IconSlot slot = eventData.pointerDrag.GetComponent<IconSlot>();
 
-        //E_ItemType itemtype = this.m_ItemID;
-        //// 치환이되었고
-        //this.SetIcon(icon.ItemType);
 
-        //// 치환하기
-        //slot.SetIcon(itemtype);
-
+        
         int prevat = this.m_PlayerItemListAt;
-        this.SetPlayerItemAt(slot.m_PlayerItemListAt);
-        slot.SetPlayerItemAt(prevat);
+        this.SetPlayerItemAt(icon.ItemAt);
+        //slot.SetPlayerItemAt(prevat);
     }
-    public virtual void OnDrag(PointerEventData eventData)
+    public void OnDrag(PointerEventData eventData)
     {
         if (m_ItemID == E_ItemType.None)
             return;
@@ -145,7 +140,7 @@ public class IconSlot : MonoBehaviour
         Debug.Log("드래그 ");
 
         Camera cam = m_LinkCanvas.worldCamera;
-        if (cam == null 
+        if (cam == null
             || m_LinkCanvas.renderMode == RenderMode.ScreenSpaceOverlay
             )
             m_LinkMove.transform.position = Input.mousePosition;
@@ -155,7 +150,7 @@ public class IconSlot : MonoBehaviour
             // 화면 카메라모드일시 사용되는 방법
             Vector3 wpos;
             RectTransform recttrans = GetComponent<RectTransform>();
-            if(RectTransformUtility.ScreenPointToWorldPointInRectangle(recttrans
+            if (RectTransformUtility.ScreenPointToWorldPointInRectangle(recttrans
                 , Input.mousePosition
                 , cam
                 , out wpos))
@@ -166,12 +161,12 @@ public class IconSlot : MonoBehaviour
 
         }
     }
-    public virtual void OnBeginDrag(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData)
     {
         if (m_ItemID == E_ItemType.None)
             return;
 
-        
+
         m_ISDrag = true;
         m_LinkMove = ItemDataManager.GetInstance.MoveIcon;
         //m_LinkMove.BeginDrag(m_ItemID);
@@ -182,21 +177,21 @@ public class IconSlot : MonoBehaviour
         Debug.Log("드래그 시작 ");
     }
 
-    public virtual void OnEndDrag(PointerEventData eventData)
+    public void OnEndDrag(PointerEventData eventData)
     {
         m_ISDrag = false;
         //m_LinkMove = ItemDataManager.GetInstance.MoveIcon;
         m_LinkMove.EndDrag();
         m_LinkMove = null;
-        Debug.Log( $"드래그 끝 : {this.name}, {eventData.pointerDrag.name} ");
+        Debug.Log($"드래그 끝 : {this.name}, {eventData.pointerDrag.name} ");
     }
 
-    public virtual void OnPointerUp(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData)
     {
         Debug.Log("마우스업 ");
     }
 
-    public virtual void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("마우스 클릭 ");
 
@@ -206,7 +201,7 @@ public class IconSlot : MonoBehaviour
         }
     }
 
-    public virtual void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
         m_ISDrag = false;
     }
