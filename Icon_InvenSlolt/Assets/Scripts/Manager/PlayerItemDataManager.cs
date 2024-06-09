@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,6 +7,8 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerItemTableData : ItemTableData
 {
+    // uuid
+    public long ItemUID = 0;
 
     public PlayerItemTableData(ItemTableData p_itemtable) : base(p_itemtable)
     {
@@ -42,6 +45,7 @@ public class PlayerItemDataManager : SingletonT<PlayerItemDataManager>
     }
     public void AddItem( E_ItemType p_itemtype )
     {
+
         PlayerItemTableData item = GetItem(p_itemtype);
         if(item == null)
         {
@@ -49,6 +53,10 @@ public class PlayerItemDataManager : SingletonT<PlayerItemDataManager>
             if(tabledata != null)
             {
                 item = new PlayerItemTableData(tabledata);
+
+                // 현재 생성된 시간
+                item.ItemUID = ExtendFNs.GetUinqeID();
+
                 m_PlayerItemTableDataList.Add(item);
             }
             else

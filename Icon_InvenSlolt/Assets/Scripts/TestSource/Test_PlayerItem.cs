@@ -8,9 +8,6 @@ public class Test_PlayerItem : MonoBehaviour
     private void Awake()
     {
 
-
-
-
         PlayerItemDataManager.Instance.AddItem(E_ItemType.Apple);
         PlayerItemDataManager.Instance.AddItem(E_ItemType.Apple);
         PlayerItemDataManager.Instance.AddItem(E_ItemType.Apple);

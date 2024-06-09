@@ -36,12 +36,13 @@ public enum E_ItemType
     Max = 99999999
 }
 
-
 public enum E_ItemCategory
 {
     UseItem,
     Equip,
     Weapon,
+    Skill,
+
 
 }
 

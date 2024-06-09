@@ -44,13 +44,18 @@ public class QuickSlot : BaseIconSlot
         }
 
 
+        // inven -> quick
         if(slot is InvenSlot)
         {
             // 복사를 해라
             this.SetPlayerItemAt(playerat);
+
+            // 예외처리하기
+
         }
         else if(slot is QuickSlot)
         {
+            // quick -> quick
             // 추가 적으로 바꾸도록 하기
             ((slot) as QuickSlot).m_ISEndDragDelete = false;
             // 서로치환
@@ -62,6 +67,10 @@ public class QuickSlot : BaseIconSlot
     }
 
     protected bool m_ISEndDragDelete = false;
+    public void SetEndDragNotDelete()
+    {
+        m_ISEndDragDelete = false;
+    }
     //public bool ISEndDragDelete
     //{
     //    get { return m_ISEndDragDelete; }
