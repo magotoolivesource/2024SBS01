@@ -33,6 +33,15 @@ public class Orc : MonoBehaviour
     {
         Vector3 dirvec = m_TargetTrans.transform.position - transform.position;
         m_DirectionVec = dirvec.normalized;
+
+        if(m_DirectionVec.x > 0.5f)
+        {
+            m_LinkAnimator.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            m_LinkAnimator.transform.localScale = Vector3.one;
+        }
     }
 
     void Update()
