@@ -30,6 +30,19 @@ public class QuickSlot : BaseIconSlot
         MoveIcon icon = eventData.selectedObject.GetComponent<MoveIcon>();
         BaseIconSlot slot = eventData.pointerDrag.GetComponent<BaseIconSlot>();
 
+
+        // 스킬 일때 
+        if (slot is SkillSlot)
+        {
+            int skillid = icon.SkillID;
+            SkillSlot skillslot = slot as SkillSlot;
+
+            SkillUpdateUI(skillid);
+            return;
+        }
+
+
+        // 아이템 일때
         // 아이템 정보 가져오기
         int playerat = slot.PlayerItemListAt;
         m_LinkItemData = PlayerItemDataManager.Instance.GetItemAt(playerat);
@@ -64,6 +77,19 @@ public class QuickSlot : BaseIconSlot
             
         }
 
+    }
+
+    public void SkillUpdateUI(int p_skillid)
+    {
+        PlayerSkillTableData skilldata = SkillDataManager.Instance.GetSkillID(p_skillid);
+        if (skilldata == null)
+        {
+            m_IconImage.gameObject.SetActive(false);
+            return;
+        }
+
+        m_IconImage.gameObject.SetActive(true);
+        m_IconImage.sprite = skilldata.SpriteImg;
     }
 
     protected bool m_ISEndDragDelete = false;

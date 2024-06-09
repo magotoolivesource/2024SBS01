@@ -29,6 +29,8 @@ public class MoveIcon : MonoBehaviour
         SetItemAt(p_playeritemat);
     }
 
+    
+
     public void EndDrag()
     {
         gameObject.SetActive(false);
@@ -73,4 +75,32 @@ public class MoveIcon : MonoBehaviour
     {
         
     }
+
+
+
+    protected int m_SkillID = -1;
+    public int SkillID
+    {
+        get { return m_SkillID; }
+    }
+    public void BeginDragSkill(int p_skillid)
+    {
+        
+        gameObject.SetActive(true);
+        //SetItem(p_itemtype);
+
+        SetSkillID(p_skillid);
+    }
+
+    protected void SetSkillID(int p_skillid)
+    {
+        m_LinkItemTable = null;
+
+        m_SkillID = p_skillid;
+        SkillTableData tabledata = SkillDataManager.Instance.GetSkillTableData_ID(p_skillid);
+        //m_ItemType = m_LinkItemTable.ItemTypeID;
+        m_LinkImg.sprite = tabledata.SpriteImg;
+
+    }
+
 }

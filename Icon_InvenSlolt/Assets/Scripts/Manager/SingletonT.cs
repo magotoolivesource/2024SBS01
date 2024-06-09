@@ -10,16 +10,19 @@ public class SingletonT<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (!instance)
             {
-                GameObject obj;
-                obj = GameObject.Find(typeof(T).Name);
-                if (!obj)
+                //T obj;
+                //obj = GameObject.Find(typeof(T).Name);
+                
+                T objtype = GameObject.FindAnyObjectByType<T>();
+                if (!objtype)
                 {
-                    obj = new GameObject(typeof(T).Name);
+                    string singletonname = typeof(T).Name;
+                    GameObject obj = new GameObject( singletonname );
                     instance = obj.AddComponent<T>();
                 }
                 else
                 {
-                    instance = obj.GetComponent<T>();
+                    instance = objtype;// obj.GetComponent<T>();
                 }
             }
             return instance;

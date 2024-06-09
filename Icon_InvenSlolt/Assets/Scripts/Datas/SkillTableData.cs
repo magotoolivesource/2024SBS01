@@ -1,3 +1,4 @@
+using UnityEditor.Purchasing;
 using UnityEngine;
 
 
@@ -15,6 +16,9 @@ public class SkillTableData : ScriptableObject
     public string SpritePath;
     public Sprite SpriteImg;
 
+
+    public int ParentSkillID = -1;
+    public int ParentSkillLV;
 
 
     [ContextMenu("[id 시작 초기화]")]
