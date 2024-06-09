@@ -37,9 +37,13 @@ public class EquipSlot : BaseIconSlot
         if (eventData.selectedObject == null)
             return;
 
-
         MoveIcon icon = eventData.selectedObject.GetComponent<MoveIcon>();
         BaseIconSlot slot = eventData.pointerDrag.GetComponent<BaseIconSlot>();
+
+        if (slot as SkillSlot)
+        {
+            return;
+        }
 
         // 아이템 정보 가져오기
 

@@ -38,8 +38,14 @@ public class InvenSlot : BaseIconSlot
         MoveIcon icon = eventData.selectedObject.GetComponent<MoveIcon>();
         BaseIconSlot slot = eventData.pointerDrag.GetComponent<BaseIconSlot>();
 
+        if (slot as SkillSlot)
+        {
+            return;
+        }
+            
+
         // inven -> inven, equip -> inven
-        if( !(slot is QuickSlot) )
+        if ( !(slot is QuickSlot) )
         {
             base.OnDrop(eventData);
             return;
@@ -60,18 +66,19 @@ public class InvenSlot : BaseIconSlot
         }
 
         this.SetPlayerItemAt(slotat);
-
         QuickSlot quickslot = slot as QuickSlot;
-        quickslot.SetEndDragNotDelete();
 
         if( slotat != prevat )
         {
+            quickslot.SetEndDragNotDelete();
             quickslot.SetPlayerItemAt(prevat);
         }
         else
         {
-            quickslot.SetPlayerItemAt(-1);
+            //quickslot.SetPlayerItemAt(-1);
         }
+        
+        
         
     }
 
