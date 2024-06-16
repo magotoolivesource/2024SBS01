@@ -52,6 +52,8 @@ public class BaseActor : MonoBehaviour
     }
 
 
+    
+    public E_NaigationType MoveID = 0;
     public float MoveSpeed = 1f;
     protected Vector3 m_MoveDirection = Vector3.zero;
     protected void UpdateTargetMove()
@@ -68,6 +70,9 @@ public class BaseActor : MonoBehaviour
 
     protected void SetTargetDirection()
     {
+        if (m_TargetTrans == null)
+            return;
+
         m_MoveDirection = m_TargetTrans.position - transform.position;
         m_MoveDirection.Normalize();
     }
