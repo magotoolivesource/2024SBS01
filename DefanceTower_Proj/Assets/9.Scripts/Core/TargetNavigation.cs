@@ -26,6 +26,7 @@ public class TargetNavigation : MonoBehaviour
     }
 
 
+    public float ArrowHeadSize = 0.2f;
     //public Mesh linkMesh = null;
     private void OnDrawGizmos()
     {
@@ -41,11 +42,11 @@ public class TargetNavigation : MonoBehaviour
         // 화살표 그리기용
         // https://www.reddit.com/r/Unity3D/comments/16p3xqy/simple_arrow_gizmo/?rdt=49651
         Vector3 direction = NextTarget.transform.position - transform.position;
-        direction.Normalize();
+        //direction.Normalize();
         DrawArrowGizmo(transform.position
-            , direction
+            , direction.normalized
             , direction.magnitude
-            , 0.5f
+            , ArrowHeadSize
             , GizmoLineColor);
 
 
@@ -74,6 +75,8 @@ public class TargetNavigation : MonoBehaviour
         Vector3 up = Vector3.up;
         Vector3 forward = Vector3.Cross(p_direction, up);
         up = Vector3.Cross(p_direction, forward);
+        up.Normalize();
+
 
         Gizmos.DrawLine(p_stpos, arrowHead);
         Gizmos.DrawLineStrip(new Vector3[3] { arrowRim + up * p_length * p_headsize

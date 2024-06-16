@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseActor : MonoBehaviour
@@ -13,7 +15,7 @@ public class BaseActor : MonoBehaviour
 
     E_Direction m_Driection = E_Direction.Down;
 
-
+    //protected Stack<Vector3> m_PathData = new Stack<Vector3>();
 
     private void Awake()
     {
