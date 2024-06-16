@@ -27,6 +27,9 @@ public class BaseActor : MonoBehaviour
 
     void UpdateTarget()
     {
+        if (m_TargetTrans == null)
+            return;
+
         Vector3 dirvec = m_TargetTrans.transform.position - transform.position;
         m_DirectionVec = dirvec.normalized;
 

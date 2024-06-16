@@ -32,8 +32,9 @@ public class WaveManager : MonoBehaviour
         if(m_Element.m_RemineSec <= 0f)
         {
             BaseActor cloneactor = GameObject.Instantiate(m_Element.m_Actor);
-            cloneactor.SetTarget(m_FirstTarget.transform);
+
             cloneactor.transform.position = m_CreatePos.position;// new Vector3();
+            cloneactor.SetTarget(m_FirstTarget.transform);
             cloneactor.MoveID = m_Element.m_NaviType;
 
             m_Element = WaveScriptObject.m_WaveList[m_WaveListIndex++];
