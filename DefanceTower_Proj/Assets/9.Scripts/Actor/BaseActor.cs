@@ -2,8 +2,13 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class BaseActor : MonoBehaviour
 {
+    //public int HP = 0;
+
+
     [SerializeField]
     protected Transform m_TargetTrans;
 

@@ -11,6 +11,12 @@ public enum E_Direction
 
 public class Orc : BaseActor
 {
+    protected void OnDestroy()
+    {
+        GameObject.Destroy(this.gameObject);
+
+    }
+
     //[SerializeField]
     //protected Transform m_TargetTrans;
 
@@ -22,7 +28,7 @@ public class Orc : BaseActor
 
     //E_Direction m_Driection = E_Direction.Down;
 
-    
+
 
     //private void Awake()
     //{
@@ -31,7 +37,7 @@ public class Orc : BaseActor
     //    // юс╫ц©К
     //    SetTarget(m_TargetTrans);
     //}
-    
+
     //void UpdateTarget()
     //{
     //    Vector3 dirvec = m_TargetTrans.transform.position - transform.position;

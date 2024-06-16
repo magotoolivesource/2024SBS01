@@ -1,8 +1,35 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ExtendCore
 {
+
+
+
+    public static List<T> GetRangeObjectAll<T>(Vector2 p_centerpos
+        , float p_farradius
+        , LayerMask p_mask
+        , float p_nearraius = 0f
+        ) where T : Component
+    {
+        List<T> result = new List<T>();
+
+        Collider2D[] collider2darr = Physics2D.OverlapCircleAll(p_centerpos
+           , p_farradius
+           , p_mask);
+
+        foreach (var item in collider2darr)
+        {
+            T tempobj = item.GetComponent<T>();
+            if(tempobj)
+            {
+                result.Add(tempobj);
+            }
+        }
+
+        return result;
+    }
 
 
     public static T GetRangeObject<T>(Vector2 p_centerpos
