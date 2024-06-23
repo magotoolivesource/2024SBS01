@@ -46,13 +46,18 @@ public class TowerAttackState
 
     public string Descripts;
     public float Atk;
+    public Sprite m_SpriteModel = null;
     public E_AttackType AtkType = E_AttackType.DirectAttack;
+    public float MoveSpeed = 1; // Throw, HomingThrow
 
     public E_AttackTargetType AtkTargetType = E_AttackTargetType.Range;
     public float AtkTargetTypeRange = 1f;
 
     public E_DamageType DamageType = E_DamageType.Range;
     public float DamageRange = 1f;
+
+
+
 }
 
 public class Tower : MonoBehaviour
