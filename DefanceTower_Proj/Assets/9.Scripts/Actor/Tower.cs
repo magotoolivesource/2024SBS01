@@ -1,5 +1,6 @@
-using UnityEditor.U2D.Aseprite;
+//using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 
 public enum E_AttackType
@@ -43,8 +44,10 @@ public class TowerAttackState
     // ¹ßÅ°¸®
     // HomingThrow, One, Range
 
+    public string Descripts;
     public float Atk;
     public E_AttackType AtkType = E_AttackType.DirectAttack;
+
     public E_AttackTargetType AtkTargetType = E_AttackTargetType.Range;
     public float AtkTargetTypeRange = 1f;
 
@@ -54,6 +57,8 @@ public class TowerAttackState
 
 public class Tower : MonoBehaviour
 {
+
+    
 
     public TowerAttackState AttackState;
 
@@ -125,17 +130,37 @@ public class Tower : MonoBehaviour
     }
 
 
+    public bool ISDrawGizmos = true;
+
+    private void OnDrawGizmosSelected()
+    {
+
+    }
 
     private void OnDrawGizmos()
     {
-        if (m_Targe == null)
+        if (!ISDrawGizmos)
             return;
 
-        Vector3 directionpos = m_Targe.transform.position - transform.position;
-        ExtendCore.DrawArrowGizmo(transform.position, directionpos.normalized
-            , directionpos.magnitude
-            , 0.2f
-            , Color.green);
+        if(AttackState.AtkTargetType == E_AttackTargetType.One)
+        {
+            if (m_Targe == null)
+                return;
+
+            Vector3 directionpos = m_Targe.transform.position - transform.position;
+            ExtendCore.DrawArrowGizmo(transform.position, directionpos.normalized
+                , directionpos.magnitude
+                , 0.2f
+                , Color.green);
+        }
+        else if(AttackState.AtkTargetType == E_AttackTargetType.Range)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(transform.position, AttackState.AtkTargetTypeRange);
+
+        }
+
+        
     }
 
 
@@ -156,6 +181,9 @@ public class Tower : MonoBehaviour
             Fire();
         }
     }
+
+
+
     public void Fire()
     {
         if (m_Targe == null)
@@ -163,6 +191,7 @@ public class Tower : MonoBehaviour
 
 
         Attack_Com attackcom = GameObject.Instantiate<Attack_Com>(Prefab_AttackCom);
+
         attackcom.SetAttackDatas(this, m_Targe);
 
 

@@ -8,14 +8,39 @@ public class Attack_Com : MonoBehaviour
 
     [SerializeField]
     protected bool m_ISUse = true;
+    [SerializeField]
     protected Tower m_Attacker;
+    [SerializeField]
     protected TowerAttackState m_AttackState;
     //protected BaseActor m_Target;
+    [SerializeField]
     protected ActorState m_TargetActorState;
+
+    
+
+
+    protected bool m_ISInit = false;
+    protected Transform m_Test_ChildTrans = null;
+    protected void Init()
+    {
+        if (m_ISInit)
+            return;
+
+        m_ISInit=true;
+        m_Test_ChildTrans = GetComponent<Transform>();
+    }
+    private void Start()
+    {
+        Init();
+    }
+
     public void SetAttackDatas(Tower p_tower
         //, TowerAttackState p_attackstate
         , BaseActor p_actor )
     {
+        Init();
+
+
         m_Attacker = p_tower;
         m_AttackState = m_Attacker.AttackState;
         m_TargetActorState = p_actor.GetComponent<ActorState>();
@@ -23,15 +48,20 @@ public class Attack_Com : MonoBehaviour
 
         InitSetting();
 
-
         UpdateAttack();
     }
     protected void InitSetting()
     {
         if(m_AttackState.AtkType == E_AttackType.DirectAttack )
         {
-            transform.position = m_TargetActorState.transform.position;
-
+            if(m_AttackState.AtkTargetType == E_AttackTargetType.One)
+            {
+                transform.position = m_TargetActorState.transform.position;
+            }
+            else if(m_AttackState.AtkTargetType == E_AttackTargetType.Range)
+            {
+                transform.position = m_Attacker.transform.position;
+            }
         }
         else if( m_AttackState.AtkType == E_AttackType.Throw
             || m_AttackState.AtkType == E_AttackType.HomingThrow
@@ -74,12 +104,6 @@ public class Attack_Com : MonoBehaviour
         {
 
         }
-    }
-
-
-    void Start()
-    {
-        
     }
 
     void Update()
