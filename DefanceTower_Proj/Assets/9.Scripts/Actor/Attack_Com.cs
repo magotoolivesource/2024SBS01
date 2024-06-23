@@ -222,6 +222,18 @@ public class Attack_Com : MonoBehaviour
         }
 
 
+        if(m_AttackState.DebuffType != E_BuffNDebuffType.MAX)
+        {
+            BuffNDebuffManager.GetI.CreateBuffNDebuff_AddCompoment(m_AttackState.DebuffType
+                , m_TargetActorState.gameObject );
+
+            // 예제코드
+            MoveDebuff_COM com = m_TargetActorState.GetComponent<MoveDebuff_COM>();
+            com.SetInit(5, 0.5f);
+        }
+        
+
+
         SetDestroyObj();
     }
 

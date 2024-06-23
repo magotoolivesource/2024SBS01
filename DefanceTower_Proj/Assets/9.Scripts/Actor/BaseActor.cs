@@ -62,6 +62,16 @@ public class BaseActor : MonoBehaviour
     }
 
 
+    public void SetDebuffMoveSpeed(float p_movespeed, float p_lifesec )
+    {
+
+    }
+    // 1초동안 이동 디버프
+    public void SetMoveSpeed(float p_movespeed)
+    {
+        MoveSpeed = p_movespeed;
+    }
+
     
     public E_NaigationType MoveID = 0;
     public float MoveSpeed = 1f;

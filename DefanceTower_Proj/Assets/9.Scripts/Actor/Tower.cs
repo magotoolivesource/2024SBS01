@@ -57,6 +57,8 @@ public class TowerAttackState
     public float DamageRange = 1f;
 
 
+    public E_BuffNDebuffType DebuffType = E_BuffNDebuffType.MAX;
+    public float DebuffLifeSec = 1f;
 
 }
 
