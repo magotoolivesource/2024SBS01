@@ -1,6 +1,11 @@
+#define NEW_BUFFDEBUFFUSE
+
 //using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.Rendering;
+
+
+
 
 
 public enum E_AttackType
@@ -57,8 +62,15 @@ public class TowerAttackState
     public float DamageRange = 1f;
 
 
+    // 하단  BuffNDebuff_ScriptableObj 사용
+#if !NEW_BUFFDEBUFFUSE
     public E_BuffNDebuffType DebuffType = E_BuffNDebuffType.MAX;
     public float DebuffLifeSec = 1f;
+#else
+    public BuffNDebuff_ScriptableObj m_DebuffObj = null;
+#endif
+
+
 
 }
 

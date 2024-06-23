@@ -27,24 +27,24 @@ public class BuffNDebuffManager : Du3Core.Singleton_Mono<BuffNDebuffManager>
     /// </summary>
     /// <param name="p_type"></param>
     /// <param name="p_inobj"></param>
-    public void CreateBuffNDebuff_AddCompoment(E_BuffNDebuffType p_type, GameObject p_inobj)
+    public BuffNDebuff CreateBuffNDebuff_AddCompoment(E_BuffNDebuffType p_type, GameObject p_inobj)
     {
 
         Type currtype = Type.GetType($"{p_type.ToString()}_COM");
         if (currtype != null)
         {
-            var currbuff = p_inobj.GetComponent(currtype);
-            if (currbuff)
-                return;
+            //var currbuff = p_inobj.GetComponent(currtype);
+            //if (currbuff)
+            //    return;
 
-            p_inobj.AddComponent(currtype);
+            return p_inobj.AddComponent(currtype) as BuffNDebuff;// .GetComponent<BuffNDebuff>();
         }
         else
         {
             Debug.LogError($"클래스명 같은것으로 꼭 만들어야지됨 : ");
         }
 
-
+        return null;
     }
 
 

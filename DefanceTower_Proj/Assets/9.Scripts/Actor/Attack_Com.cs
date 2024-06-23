@@ -1,3 +1,5 @@
+#define NEW_BUFFDEBUFFUSE
+
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -221,17 +223,24 @@ public class Attack_Com : MonoBehaviour
             }
         }
 
-
-        if(m_AttackState.DebuffType != E_BuffNDebuffType.MAX)
+#if !NEW_BUFFDEBUFFUSE
+        if (m_AttackState.DebuffType != E_BuffNDebuffType.MAX)
         {
-            BuffNDebuffManager.GetI.CreateBuffNDebuff_AddCompoment(m_AttackState.DebuffType
+            BuffNDebuff buff = BuffNDebuffManager.GetI.CreateBuffNDebuff_AddCompoment(m_AttackState.DebuffType
                 , m_TargetActorState.gameObject );
 
             // 예제코드
-            MoveDebuff_COM com = m_TargetActorState.GetComponent<MoveDebuff_COM>();
+            MoveDebuff_COM com = buff as MoveDebuff_COM;// m_TargetActorState.GetComponent<MoveDebuff_COM>();
             com.SetInit(5, 0.5f);
+
+        }
+#else
+        if(m_AttackState.m_DebuffObj )
+        {
+            m_AttackState.m_DebuffObj.AddBuffNDebuffCompoment(m_TargetActorState.gameObject);
         }
         
+#endif
 
 
         SetDestroyObj();

@@ -960,7 +960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackState:
     Descripts: 
-    Atk: 1
+    Atk: 0
     m_SpriteModel: {fileID: -5305218208300342839, guid: 472b49ceb353d5544aafe38a42549950, type: 3}
     AtkType: 0
     MoveSpeed: 0.3
@@ -968,15 +968,14 @@ MonoBehaviour:
     AtkTargetTypeRange: 1
     DamageType: 0
     DamageRange: 1
-    DebuffType: 5
-    DebuffLifeSec: 1
+    m_DebuffObj: {fileID: 11400000, guid: 7da568e793cfd3048a9b3a3949cb4438, type: 2}
   m_Targe: {fileID: 0}
   RangeSize: 3
   EnemyMask:
     serializedVersion: 2
     m_Bits: 64
   ISDrawGizmos: 1
-  DelayFireSec: 1
+  DelayFireSec: 3
   Prefab_AttackCom: {fileID: 6535851811833830931, guid: 4d7f453c1fbf3fc45ac58a40b27c60c5, type: 3}
 --- !u!4 &344156614
 Transform:
@@ -987,7 +986,7 @@ Transform:
   m_GameObject: {fileID: 344156611}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.58, y: -3.96, z: 0}
+  m_LocalPosition: {x: -1.78, y: 0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1787,7 +1786,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackState:
     Descripts: 
-    Atk: 1
+    Atk: 0
     m_SpriteModel: {fileID: -5305218208300342839, guid: 472b49ceb353d5544aafe38a42549950, type: 3}
     AtkType: 1
     MoveSpeed: 0.3
@@ -1795,8 +1794,7 @@ MonoBehaviour:
     AtkTargetTypeRange: 1
     DamageType: 0
     DamageRange: 1
-    DebuffType: 2
-    DebuffLifeSec: 1
+    m_DebuffObj: {fileID: 11400000, guid: 395a798aa1eca334ab21e62afd4f2bb4, type: 2}
   m_Targe: {fileID: 0}
   RangeSize: 3
   EnemyMask:
@@ -2020,8 +2018,7 @@ MonoBehaviour:
     AtkTargetTypeRange: 1
     DamageType: 0
     DamageRange: 1
-    DebuffType: 5
-    DebuffLifeSec: 1
+    m_DebuffObj: {fileID: 0}
   m_Targe: {fileID: 0}
   RangeSize: 3
   EnemyMask:
@@ -3914,7 +3911,7 @@ PrefabInstance:
     - target: {fileID: 7101007394364693459, guid: 6320951639515434bae6fb39de1f65d6, type: 3}
       propertyPath: m_TargetTrans
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1278811443}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
