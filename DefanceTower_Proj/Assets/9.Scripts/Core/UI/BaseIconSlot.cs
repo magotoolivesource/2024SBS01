@@ -115,9 +115,12 @@ public abstract class BaseIconSlot<T_DATA> : MonoBehaviour
     //}
 
 
-
+    [ReadOnlyInspector]
+    [SerializeField]
     protected T_DATA m_LinkData;
 
+
+    [ReadOnlyInspector]
     [SerializeField]
     protected MoveIcon<T_DATA> m_LinkMove = null;
     protected bool m_ISDrag = false;

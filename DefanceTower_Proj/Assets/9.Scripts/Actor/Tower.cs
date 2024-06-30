@@ -77,7 +77,7 @@ public class TowerAttackState
 public class Tower : MonoBehaviour
 {
 
-    
+    public SpriteRenderer m_ModelRender = null;
 
     public TowerAttackState AttackState;
 
@@ -240,6 +240,16 @@ public class Tower : MonoBehaviour
         //}
 
     }
+
+
+    public void SetTowerInfoData( InGameTowerData p_towerdata )
+    {
+        TowerInfoData data = TowerInfoDataManager.Instance.GetTowerID(p_towerdata.TowerID);
+        m_ModelRender.sprite = data.World3DSprite;
+
+    }
+
+
 
     [ContextMenu("[범위변경]")]
     void _Editor_RangeChange()

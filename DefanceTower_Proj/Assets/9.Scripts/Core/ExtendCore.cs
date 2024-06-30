@@ -1,6 +1,28 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UIElements;
+
+
+
+public static class EXTransform
+{
+    public static T GetComponentInChildrenNName<T>( this Component p_compoment
+        , string p_name) where T : Component
+    {
+        var allcomarr = p_compoment.GetComponentsInChildren<T>(true);
+        foreach ( var c in allcomarr )
+        {
+            if (c.name == p_name)
+                return c;
+        }
+
+        return null;
+
+    }
+}
+
 
 public class ExtendCore
 {

@@ -13,6 +13,8 @@ public abstract class MoveIcon<T_DATA> : MonoBehaviour // where T : struct
     [SerializeField]
     protected Image m_LinkImg;
 
+    [ReadOnlyInspector]
+    [SerializeField]
     protected T_DATA m_LinkData;
     public T_DATA LinkData
     {

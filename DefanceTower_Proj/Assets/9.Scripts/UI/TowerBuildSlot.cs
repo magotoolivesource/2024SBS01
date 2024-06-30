@@ -2,14 +2,16 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
+[System.Serializable]
 public class TowerBuildSlot : InGameBaseSlot
 {
 
+    [ReadOnlyInspector]
+    public InGameTowerData TestTowerData;
 
-    //public InGameTowerData TestTowerData;
 
-
-
+    [ReadOnlyInspector]
     public Tower2UI m_LinkTower2UI = null;
 
     [Obsolete("현재 사용하지않음 m_LinkTower2UI 사용함")]
@@ -33,8 +35,9 @@ public class TowerBuildSlot : InGameBaseSlot
             return;
 
         var itemdata = icon.LinkData;
+        m_LinkData = icon.LinkData;
 
-        if( true )
+        if ( true )
         {
             m_LinkTower2UI.SetTowerData(icon);
         }

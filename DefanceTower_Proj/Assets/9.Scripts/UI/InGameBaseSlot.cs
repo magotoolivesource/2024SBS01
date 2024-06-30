@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
+[System.Serializable]
 public class InGameBaseSlot : BaseIconSlot<InGameTowerData>
 {
     //protected override void Awake()
