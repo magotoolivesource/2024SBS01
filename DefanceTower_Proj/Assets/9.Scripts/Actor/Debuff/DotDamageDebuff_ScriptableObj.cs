@@ -23,4 +23,13 @@ public class DotDamageDebuff_ScriptableObj : BuffNDebuff_ScriptableObj
             com.SetInit(LifeSec, DotDamageVal);
         }
     }
+
+    public void ToXml()
+    {
+
+    }
+    public void FromXml(string p_str)
+    {
+
+    }
 }
