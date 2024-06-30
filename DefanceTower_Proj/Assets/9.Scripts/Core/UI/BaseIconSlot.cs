@@ -11,9 +11,10 @@ public enum E_SLOTDATAUPDATE
     SWAP = 0,
     SRC2DEST,
     DEST2SRC,
-
+    ONLYDATA,
 }
 
+[System.Serializable]
 public abstract class BaseIconSlot<T_DATA> : MonoBehaviour
     , IDragHandler
     , IDropHandler
@@ -164,7 +165,7 @@ public abstract class BaseIconSlot<T_DATA> : MonoBehaviour
     public virtual void OnDrag(PointerEventData eventData)
     {
 
-        Debug.Log("드래그 ");
+        //Debug.Log("드래그 ");
 
         Camera cam = m_LinkCanvas.worldCamera;
         if (cam == null 

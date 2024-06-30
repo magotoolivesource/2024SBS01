@@ -183,6 +183,11 @@ public class Tower : MonoBehaviour
     }
 
 
+    public void CallBackFN2(TowerDragMoveUI p_moveui)
+    {
+        Debug.Log($"1 타워 콜백 함수 : {p_moveui}");
+        //SetTowerData(p_moveui);
+    }
 
 
 

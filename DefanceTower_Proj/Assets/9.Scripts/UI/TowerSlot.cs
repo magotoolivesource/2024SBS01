@@ -12,7 +12,7 @@ public class TowerSlot : InGameBaseSlot
     protected override void SetMoveIcon()
     {
         if(m_LinkMove == null)
-            m_LinkMove = GameObject.FindFirstObjectByType<TowerDragMoveUI>();
+            m_LinkMove = GameObject.FindFirstObjectByType<TowerDragMoveUI>( FindObjectsInactive.Include );
     }
     
     protected override void _OnDropDatas(PointerEventData eventData)
