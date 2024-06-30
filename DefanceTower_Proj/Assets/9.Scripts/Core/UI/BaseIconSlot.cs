@@ -1,10 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Purchasing;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BaseIconSlot : MonoBehaviour
+
+public enum E_SLOTDATAUPDATE
+{
+    SWAP = 0,
+    SRC2DEST,
+    DEST2SRC,
+
+}
+
+public abstract class BaseIconSlot<T_DATA> : MonoBehaviour
     , IDragHandler
     , IDropHandler
     , IBeginDragHandler
@@ -17,12 +27,12 @@ public class BaseIconSlot : MonoBehaviour
     [SerializeField]
     protected Image m_IconImage = null;
 
-    [SerializeField]
-    protected int m_PlayerItemListAt = -1;
-    public int PlayerItemListAt
-    {
-        get { return m_PlayerItemListAt; }
-    }
+    //[SerializeField]
+    //protected int m_PlayerItemListAt = -1;
+    //public int PlayerItemListAt
+    //{
+    //    get { return m_PlayerItemListAt; }
+    //}
 
     [Header("[확인용]")]
     //[SerializeField]
@@ -48,10 +58,15 @@ public class BaseIconSlot : MonoBehaviour
         if (m_IconImage == null)
             m_IconImage = GetComponentInChildren<Image>();
 
-        m_LinkCanvas = GetComponentInParent<Canvas>();
-
-        SetPlayerItemAt(m_PlayerItemListAt);
+        m_LinkCanvas = GetComponentInParent<Canvas>(true);
+        SetData(m_LinkData);
+        SetMoveIcon();
     }
+
+    protected abstract void SetMoveIcon();
+    //{
+    //    m_LinkMove = GameObject.FindFirstObjectByType<MoveIcon<T_DATA>>();
+    //}
 
     protected virtual void Awake()
     {
@@ -62,9 +77,10 @@ public class BaseIconSlot : MonoBehaviour
 
 
 
-    public virtual void SetPlayerItemAt(int p_at)
+    public virtual void SetData(T_DATA p_data)
     {
-        m_PlayerItemListAt = p_at;
+        m_LinkData = p_data;
+
         UpdateUI();
     }
 
@@ -98,24 +114,51 @@ public class BaseIconSlot : MonoBehaviour
     //}
 
 
+
+    protected T_DATA m_LinkData;
+
     [SerializeField]
-    protected MoveIcon m_LinkMove = null;
+    protected MoveIcon<T_DATA> m_LinkMove = null;
     protected bool m_ISDrag = false;
 
-    public virtual void OnDrop(PointerEventData eventData)
+    public E_SLOTDATAUPDATE m_DropType = E_SLOTDATAUPDATE.SWAP;
+    protected virtual void _OnDropDatas(PointerEventData eventData)
+    {
+        Debug.Log($"드랍 : {this.name}, {eventData.pointerDrag.name}, {eventData.selectedObject.name}");
+        MoveIcon<T_DATA> icon = eventData.selectedObject.GetComponent<MoveIcon<T_DATA>>();
+        BaseIconSlot<T_DATA> slot = eventData.pointerDrag.GetComponent<BaseIconSlot<T_DATA>>();
+
+        if(m_DropType == E_SLOTDATAUPDATE.SWAP )
+        {
+            // 서로 치환
+            T_DATA prevdata = this.m_LinkData;
+            this.SetData(slot.m_LinkData);
+            slot.SetData(prevdata);
+        }
+        else if(m_DropType == E_SLOTDATAUPDATE.SRC2DEST)
+        {
+            // 원본에서 복사
+            T_DATA prevdata = this.m_LinkData;
+            this.SetData(slot.m_LinkData);
+            //slot.SetData(prevdata);
+        }
+        else if (m_DropType == E_SLOTDATAUPDATE.DEST2SRC)
+        {
+            // 원본만 수정
+            T_DATA prevdata = this.m_LinkData;
+            //this.SetData(slot.m_LinkData);
+            slot.SetData(prevdata);
+        }
+
+    }
+
+    public void OnDrop(PointerEventData eventData)
     {
         if (eventData.selectedObject == null)
             return;
-        
 
-        Debug.Log( $"드랍 : {this.name}, {eventData.pointerDrag.name }, {eventData.selectedObject.name}");
+        _OnDropDatas(eventData);
 
-        MoveIcon icon = eventData.selectedObject.GetComponent<MoveIcon>();
-        BaseIconSlot slot = eventData.pointerDrag.GetComponent<BaseIconSlot>();
-
-        int prevat = this.m_PlayerItemListAt;
-        this.SetPlayerItemAt(slot.m_PlayerItemListAt);
-        slot.SetPlayerItemAt(prevat);
     }
 
     public virtual void OnDrag(PointerEventData eventData)
@@ -148,8 +191,8 @@ public class BaseIconSlot : MonoBehaviour
         m_ISDrag = true;
 
         // 수정하기
-        m_LinkMove = null;// ItemDataManager.GetInstance.MoveIcon;
-        m_LinkMove.BeginDrag(this.m_PlayerItemListAt);
+        //m_LinkMove = null;// ItemDataManager.GetInstance.MoveIcon;
+        m_LinkMove.BeginDrag( m_LinkData );
 
         eventData.selectedObject = m_LinkMove.gameObject;
 
@@ -160,7 +203,7 @@ public class BaseIconSlot : MonoBehaviour
     {
         m_ISDrag = false;
         m_LinkMove.EndDrag();
-        m_LinkMove = null;
+        //m_LinkMove = null;
         Debug.Log( $"드래그 끝 : {this.name}, {eventData.pointerDrag.name} ");
     }
 
