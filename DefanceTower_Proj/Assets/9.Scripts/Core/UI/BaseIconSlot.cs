@@ -174,7 +174,10 @@ public abstract class BaseIconSlot<T_DATA> : MonoBehaviour
         if (cam == null 
             || m_LinkCanvas.renderMode == RenderMode.ScreenSpaceOverlay
             )
+        {
+
             m_LinkMove.transform.position = Input.mousePosition;
+        }
         else
         {
             Vector3 wpos;

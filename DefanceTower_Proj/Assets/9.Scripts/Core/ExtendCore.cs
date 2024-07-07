@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -21,12 +22,54 @@ public static class EXTransform
         return null;
 
     }
+
+    public static T FindNameNCompoment<T>( string p_name ) where T : Component
+    {
+        // 1번째 방법 어떤 방법 예외가 생길수 있다
+        //return GameObject.Find( p_name ).GetComponent<T>();
+
+        // 2번째 방법
+        T[] objarr = GameObject.FindObjectsByType<T>(FindObjectsSortMode.None);
+        foreach (var c in objarr)
+        {
+            if (c.name == p_name)
+                return c;
+        }
+        return null;
+
+        //T[] objarr = null;
+        //var allitem = from item in objarr
+        //                where item.name == p_name
+        //                select (item);
+
+        //return (T)GameObject.FindObjectsByType<T>(FindObjectsSortMode.None)
+        //            .Where((x) => x.name == p_name)
+        //            .DefaultIfEmpty<T>();
+
+
+    }
+
+
 }
 
 
 public class ExtendCore
 {
 
+    public static void GridSnapMove(RectTransform p_uitransform
+    , Camera p_in2dworldcam
+    , float p_snapsize = 1f)
+    {
+        Vector3 w_pos = p_in2dworldcam.ScreenToWorldPoint(p_uitransform.position);
+        w_pos.x = (int)w_pos.x;
+        w_pos.y = (int)w_pos.y;
+        w_pos.z = (int)w_pos.z;
+
+
+        Vector3 screen_pos = p_in2dworldcam.WorldToScreenPoint(w_pos);
+        p_uitransform.position = screen_pos;
+
+    }
 
 
     public static List<T> GetRangeObjectAll<T>(Vector2 p_centerpos

@@ -36,5 +36,36 @@ public class TowerSlot : InGameBaseSlot
     }
 
 
+    public override void OnDrag(PointerEventData eventData)
+    {
+        // 
+        Camera cam = m_LinkCanvas.worldCamera;
+
+        if (cam == null
+            || m_LinkCanvas.renderMode == RenderMode.ScreenSpaceOverlay
+            )
+        {
+            m_LinkMove.transform.position = Input.mousePosition;
+        }
+        else
+        {
+            Vector3 wpos;
+            RectTransform recttrans = GetComponent<RectTransform>();
+            if (RectTransformUtility.ScreenPointToWorldPointInRectangle(recttrans
+                , Input.mousePosition
+                , cam
+                , out wpos))
+            {
+                m_LinkMove.transform.position = wpos;
+            }
+        }
+
+        Camera maincam = Camera.main;
+        ExtendCore.GridSnapMove(m_LinkMove.GetComponent<RectTransform>(), maincam);
+
+    }
+
+    
+
 
 }

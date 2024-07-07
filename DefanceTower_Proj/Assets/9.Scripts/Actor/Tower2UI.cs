@@ -57,8 +57,14 @@ public class Tower2UI : MonoBehaviour
         //_2DUIPanelParent = img.rectTransform;
 
 
-
+        if( _2DUIPanelParent == null)
+        {
+            _2DUIPanelParent = EXTransform.FindNameNCompoment<Image>("BottomPanel")
+                                .GetComponent<RectTransform>();
+        }
         m_PrentCanvas = _2DUIPanelParent.GetComponentInParent<Canvas>();
+
+
 
         m_2DUILinkSlot = GameObject.Instantiate(m_PrefabSlot, _2DUIPanelParent);
 

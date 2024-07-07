@@ -9,6 +9,9 @@ using UnityEngine.UI;
 [RequireComponent( typeof(Image) )]
 public abstract class MoveIcon<T_DATA> : MonoBehaviour // where T : struct
 {
+
+
+
     [Header("[È®ÀÎ¿ë]")]
     [SerializeField]
     protected Image m_LinkImg;
