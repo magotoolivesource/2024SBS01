@@ -75,7 +75,23 @@ public class FSMUIManager : MonoBehaviour
     E_UIState m_CurrentState = E_UIState.Max;
     [SerializeField]
     E_UIState m_PrevState = E_UIState.Max;
-    public void ChangeUI( E_UIState p_state, bool p_direct = false )
+
+    Stack<E_UIState> m_PrevStateStack = new Stack<E_UIState>();
+
+
+
+    public void SetChangePrevUI()
+    {
+        if (m_PrevStateStack.Count <= 0)
+            return;
+
+        E_UIState state = m_PrevStateStack.Pop();
+        ChangeUI(state, false);
+    }
+
+    public void ChangeUI( E_UIState p_state
+        , bool p_addstack = true
+        , bool p_direct = false )
     {
         if (m_CurrentState == p_state)
         {
@@ -85,6 +101,12 @@ public class FSMUIManager : MonoBehaviour
         if(m_CurrentState != E_UIState.Max)
         {
             m_LinkAnimator.SetBool($"{m_CurrentState}_Trn", false);
+        }
+
+        if ( p_addstack
+            && m_CurrentState != E_UIState.Max)
+        {
+            m_PrevStateStack.Push(m_CurrentState);
         }
 
         m_PrevState = m_CurrentState;
