@@ -277,4 +277,17 @@ public class Tower : MonoBehaviour
         UpdateFire();
 
     }
+
+
+
+    [ContextMenu("[타워 업그레이드오픈]")]
+    void _Editor_UpgradOpen()
+    {
+        //ExtendCore.EXTransform()
+        // 임시
+        TowerUpgradPanel panel = GameObject.FindFirstObjectByType<TowerUpgradPanel>( FindObjectsInactive.Include );
+        panel.ShowUpgradPanel(this);
+    }
+
+
 }

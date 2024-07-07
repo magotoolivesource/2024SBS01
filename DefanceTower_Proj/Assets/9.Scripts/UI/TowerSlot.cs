@@ -61,7 +61,7 @@ public class TowerSlot : InGameBaseSlot
         }
 
         Camera maincam = Camera.main;
-        ExtendCore.GridSnapMove(m_LinkMove.GetComponent<RectTransform>(), maincam);
+        //ExtendCore.GridSnapMove(m_LinkMove.GetComponent<RectTransform>(), maincam);
 
     }
 
