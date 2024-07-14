@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -8,7 +9,7 @@ public struct SunFlowerData
 {
     public float CreateSunSec;// = 1f;
     public int CreateSunCount;// = 1;
-    public int AddSunVal;// = 25;
+    public int AddSolaVal;// = 25;
 
     public SunFlowerData( float p_createsunsec = 1
         , int p_createcount = 1
@@ -16,7 +17,7 @@ public struct SunFlowerData
     {
         CreateSunSec = p_createsunsec;
         CreateSunCount = p_createcount;
-        AddSunVal = addval;
+        AddSolaVal = addval;
     }
 }
 
@@ -29,7 +30,7 @@ public class SunFlower : MonoBehaviour
     {
         m_DurationSec = InSunFlowerData.CreateSunSec;
 
-        DOVirtual.DelayedCall(InSunFlowerData.CreateSunSec, CreateSun, true)
+        DOVirtual.DelayedCall(InSunFlowerData.CreateSunSec, CreateSun, false)
             .SetLoops(-1);
     }
 
@@ -40,7 +41,9 @@ public class SunFlower : MonoBehaviour
         Sola prefabs = Resources.Load<Sola>("Prefabs/Sola");
         Sola cloneprefabs = GameObject.Instantiate(prefabs);
 
-        cloneprefabs.SetSunFlowerCreateMove(transform.position, 2f);
+        cloneprefabs.SetFlowerData(InSunFlowerData);
+        cloneprefabs.AddComponent<SolaJumpMove_Com>().SetSunFlowerCreateMove(transform.position, 2f);
+        //cloneprefabs.SetSunFlowerCreateMove(transform.position, 2f, InSunFlowerData);
 
         
     }
