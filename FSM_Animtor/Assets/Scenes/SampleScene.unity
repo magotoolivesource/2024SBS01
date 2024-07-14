@@ -219,6 +219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d8360171dca3e458b40a544cbecf8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CurrentState: 3
+  m_PrevState: 3
 --- !u!224 &781377971 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8725603974735264798, guid: 17fabf1adf6fd274ba1f3e7716e8b5e0, type: 3}
@@ -632,6 +634,14 @@ PrefabInstance:
     - target: {fileID: 4267436412431907504, guid: 17fabf1adf6fd274ba1f3e7716e8b5e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6514601372342248514, guid: 17fabf1adf6fd274ba1f3e7716e8b5e0, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6514601372342248514, guid: 17fabf1adf6fd274ba1f3e7716e8b5e0, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7478210007518299438, guid: 17fabf1adf6fd274ba1f3e7716e8b5e0, type: 3}
       propertyPath: m_Name
