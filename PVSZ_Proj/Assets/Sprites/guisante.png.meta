@@ -132,7 +132,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      guisante_0: 3736870245837796343
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

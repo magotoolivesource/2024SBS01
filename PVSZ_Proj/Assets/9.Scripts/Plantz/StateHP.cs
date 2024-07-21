@@ -24,7 +24,13 @@ public class StateHP : MonoBehaviour
         if(HP < 0)
         {
             ISDie = true;
+            SetDie();
         }
+    }
+
+    public void SetDie()
+    {
+        // 副府令 贸府 
     }
 
     protected void ResetAllDatas()
