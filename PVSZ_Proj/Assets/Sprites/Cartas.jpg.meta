@@ -103,12 +103,12 @@ TextureImporter:
       name: Cartas_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1276
-        height: 1128
+        x: 32
+        y: 987
+        width: 119
+        height: 129
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -121,11 +121,99 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Cartas_1
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 980
+        width: 123
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11c23d61969b1974491083b6007e603c
+      internalID: -755666064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cartas_2
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 984
+        width: 120
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a201a993dad2984db083aba1de80155
+      internalID: 113220991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cartas_3
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 979
+        width: 118
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e47eba6d3cbb7a34aaffe6f168f2d2a7
+      internalID: 1915674329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cartas_4
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 984
+        width: 121
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c514c4390365bb469b4af572bc23fef
+      internalID: 315278792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b4333151599d9ff48b691b3844efd54a
     internalID: 0
     vertices: []
     indices: 
@@ -134,6 +222,10 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Cartas_0: -6062949248627734626
+      Cartas_1: -755666064
+      Cartas_2: 113220991
+      Cartas_3: 1915674329
+      Cartas_4: 315278792
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

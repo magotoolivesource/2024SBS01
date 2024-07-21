@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 
@@ -9,12 +10,15 @@ public abstract class Plantz_BaseShot : MonoBehaviour
     protected Transform m_RayCastTrans;
 
 
+    [ContextMenu("초기화하기")]
     protected void Editor_Init()
     {
         if( Application.isPlaying )
             return;
 
         m_EnemyMask = LayerMask.GetMask("Enemy");
+        m_RayCastTrans =
+            transform.GetComponentInChildrenNName<Transform>("BulletPos");
     }
 
 
@@ -25,7 +29,7 @@ public abstract class Plantz_BaseShot : MonoBehaviour
             transform.GetComponentInChildrenNName<Transform>("BulletPos");
     }
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         Editor_Init();
         Init();
