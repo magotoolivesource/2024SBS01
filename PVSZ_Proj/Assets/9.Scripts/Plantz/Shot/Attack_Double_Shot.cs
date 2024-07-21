@@ -49,7 +49,9 @@ public class Attack_Double_Shot : Plantz_BaseShot
     protected void Shot()
     {
         Bullet_Pea pea = Resources.Load<Bullet_Pea>("Prefabs/Plantz/ShotPea");
-        Bullet_Pea clonepea = GameObject.Instantiate(pea);
+        //Bullet_Pea clonepea = GameObject.Instantiate(pea);
+        var clonepea = PoolManage2.Instance.CreatePoolObjectT(pea);
+
         clonepea.SetDatas(m_BulletData);
         clonepea.transform.position = m_RayCastTrans.position;
     }

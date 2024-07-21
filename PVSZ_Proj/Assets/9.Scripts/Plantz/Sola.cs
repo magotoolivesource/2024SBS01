@@ -21,7 +21,9 @@ public class Sola : MonoBehaviour
     {
         //Debug.Log($"마우스 누름 : {this.name}");
 
-        GameObject.Destroy( gameObject );
+        //GameObject.Destroy( gameObject );
+
+        PoolManage2.Instance.RemoveObject(this);
         //점수 추가
         InGameInfoManager.Instance.AddSola( m_InSunFlowerData.AddSolaVal );
     }
@@ -51,7 +53,8 @@ public class Sola : MonoBehaviour
         //GameObject.Destroy(gameObject, 5f);
         DOVirtual.DelayedCall(LifeSec, () =>
         {
-            GameObject.Destroy(gameObject);
+            //GameObject.Destroy(gameObject);
+            PoolManage2.Instance.RemoveObject(this);
         }, false);
     }
 
@@ -84,7 +87,8 @@ public class Sola : MonoBehaviour
         //GameObject.Destroy(gameObject, 5f);
         DOVirtual.DelayedCall(LifeSec, () =>
         {
-            GameObject.Destroy(gameObject);
+            //GameObject.Destroy(gameObject);
+            PoolManage2.Instance.RemoveObject(this);
         }, false);
     }
 
@@ -135,7 +139,8 @@ public class Sola : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
 
-        GameObject.Destroy(gameObject);
+        //GameObject.Destroy(gameObject);
+        PoolManage2.Instance.RemoveObject(this);
     }
 
     void SetSolaFallDownTween()
@@ -153,7 +158,9 @@ public class Sola : MonoBehaviour
                     {
                         DOVirtual.DelayedCall(5f, () =>
                         {
-                            GameObject.Destroy(gameObject);
+                            //GameObject.Destroy(gameObject);
+
+                            PoolManage2.Instance.RemoveObject(this);
                         });
                     });
         });
@@ -172,7 +179,10 @@ public class Sola : MonoBehaviour
         seq.Append(transform.DOLocalMoveY(randypos, durationsec));
 
         seq.AppendInterval(5f);
-        seq.AppendCallback( () => { GameObject.Destroy(gameObject); } );
+        seq.AppendCallback( () => {
+            //GameObject.Destroy(gameObject); 
+            PoolManage2.Instance.RemoveObject(this);
+        } );
     }
 
 

@@ -29,7 +29,8 @@ public class SolaJumpMove_Com : MonoBehaviour
         ////GameObject.Destroy(gameObject, 5f);
         DOVirtual.DelayedCall(LifeSec, () =>
         {
-            GameObject.Destroy(gameObject);
+            //GameObject.Destroy(gameObject);
+            PoolManage2.Instance.RemoveObject(this);
         }, false);
     }
 
@@ -60,7 +61,8 @@ public class SolaJumpMove_Com : MonoBehaviour
         ////GameObject.Destroy(gameObject, 5f);
         DOVirtual.DelayedCall(LifeSec, () =>
         {
-            GameObject.Destroy(gameObject);
+            //GameObject.Destroy(gameObject);
+            PoolManage2.Instance.RemoveObject(this);
         }, false);
     }
 

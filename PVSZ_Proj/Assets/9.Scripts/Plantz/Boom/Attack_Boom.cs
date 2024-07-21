@@ -37,7 +37,8 @@ public class Attack_Boom : MonoBehaviour
 
         // 1마리만 기분
         StateHP hp = other.GetComponent<StateHP>();
-        if( hp.gameObject.layer != LayerMask.NameToLayer("Enemy") )
+        if(hp == null 
+            || hp.gameObject.layer != LayerMask.NameToLayer("Enemy") )
         {
             return;
         }
@@ -54,7 +55,8 @@ public class Attack_Boom : MonoBehaviour
         {
             if (true)
             {
-                GameObject.Destroy(gameObject);
+                //GameObject.Destroy(gameObject);
+                PoolManage2.Instance.RemoveObject(this);
             }
         }
         );

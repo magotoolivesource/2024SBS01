@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Pool;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -48,6 +49,7 @@ public class Trigger2DCallbackFN : MonoBehaviour
     {
         m_EnterCallFNEvent.AddListener(p_entercallfn);
         m_ExitCallFNEvent.AddListener(p_exitcallfn);
+
     }
 
     protected void OnTriggerEnter2D(Collider2D collision)

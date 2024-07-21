@@ -34,8 +34,9 @@ public class Bullet_Pea : MonoBehaviour
 
         StateHP hp = collision.GetComponent<StateHP>();
         hp.SetDamage( m_BulletData.DamageVal );
-        GameObject.Destroy(gameObject);
+        //GameObject.Destroy(gameObject);
 
+        PoolManage2.Instance.RemoveObject(this);
 
     }
 
@@ -59,6 +60,14 @@ public class Bullet_Pea : MonoBehaviour
     }
 
 
+    protected void UpdateDestroy()
+    {
+        //GameObject.Destroy(gameObject);
+
+        if( transform.position.x >= 20f)
+            PoolManage2.Instance.RemoveObject(this);
+    }
+
 
     void Start()
     {
@@ -69,7 +78,7 @@ public class Bullet_Pea : MonoBehaviour
     {
         UpdateMove();
         UpdateCollision();
-        
+        UpdateDestroy();
 
 
     }

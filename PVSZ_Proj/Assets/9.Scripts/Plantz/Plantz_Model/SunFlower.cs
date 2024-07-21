@@ -39,7 +39,8 @@ public class SunFlower : MonoBehaviour
     {
         // ½ã¸¸µé±â
         Sola prefabs = Resources.Load<Sola>("Prefabs/Sola");
-        Sola cloneprefabs = GameObject.Instantiate(prefabs);
+        //Sola cloneprefabs = GameObject.Instantiate(prefabs);
+        var cloneprefabs = PoolManage2.Instance.CreatePoolObjectT(prefabs);
 
         cloneprefabs.SetFlowerData(InSunFlowerData);
         cloneprefabs.AddComponent<SolaJumpMove_Com>().SetSunFlowerCreateMove(transform.position, 2f);
