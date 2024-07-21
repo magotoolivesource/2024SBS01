@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 
-public class Double_Shot : Plantz_BaseShot
+public class Attack_Double_Shot : Plantz_BaseShot
 {
     [Header("[더블용값]")]
     public float DoubleShotDelay = 0.5f;

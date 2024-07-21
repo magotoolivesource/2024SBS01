@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Triple_Shot : Plantz_BaseShot
+public class Attack_Multi_Shot : Plantz_BaseShot
 {
     [Header("Æ®¸®ÇÃ ¼¦¿ë")]
     [SerializeField]

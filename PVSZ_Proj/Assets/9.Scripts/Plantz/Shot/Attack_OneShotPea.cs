@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 
 
-public class OneShopPea : Plantz_BaseShot
+public class Attack_OneShotPea : Plantz_BaseShot
 {
     [Header("°³º°½î±â¿ë")]
     [SerializeField]

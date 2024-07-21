@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 2373538948585429066}
   - component: {fileID: 5609249681433047579}
   m_Layer: 0
-  m_Name: Pea_Plantz_TripleShot
+  m_Name: Pea_Plantz_MultiShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
