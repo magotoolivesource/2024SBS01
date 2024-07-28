@@ -60,6 +60,10 @@ public class PoolManage2 : SingletonT<PoolManage2>
 
             p_object.gameObject.SetActive(false);
         }
+        else
+        {
+            GameObject.Destroy(p_object.gameObject);
+        }
 
     }
 

@@ -31,6 +31,12 @@ public class StateHP : MonoBehaviour
     public void SetDie()
     {
         // 副府令 贸府 
+        Collider2D[] arr = GetComponents<Collider2D>();
+        foreach (var item in arr)
+        {
+            item.enabled = false;
+        }
+
     }
 
     protected void ResetAllDatas()

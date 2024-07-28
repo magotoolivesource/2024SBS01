@@ -1,10 +1,13 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
-
-
+using UnityEngine.Rendering;
+#if false
+using Resources = ResouceManager;
+#endif
 
 public class Attack_Double_Shot : Plantz_BaseShot
 {
@@ -48,7 +51,9 @@ public class Attack_Double_Shot : Plantz_BaseShot
 
     protected void Shot()
     {
-        Bullet_Pea pea = Resources.Load<Bullet_Pea>("Prefabs/Plantz/ShotPea");
+        //Bullet_Pea pea = Resources.Load<Bullet_Pea>( $"Prefabs/Plantz/ShotPea");
+        Bullet_Pea pea = ResouceManager.Load<Bullet_Pea>($"Prefabs/Plantz/ShotPea");
+
         //Bullet_Pea clonepea = GameObject.Instantiate(pea);
         var clonepea = PoolManage2.Instance.CreatePoolObjectT(pea);
 
@@ -56,5 +61,7 @@ public class Attack_Double_Shot : Plantz_BaseShot
         clonepea.transform.position = m_RayCastTrans.position;
     }
 
+    public const string ResourceShot = "Prefabs/Plantz/ShotPea";
 
 }
+
