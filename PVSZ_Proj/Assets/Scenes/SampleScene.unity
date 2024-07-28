@@ -985,7 +985,7 @@ GameObject:
   - component: {fileID: 1145256740}
   - component: {fileID: 1145256739}
   - component: {fileID: 1145256738}
-  - component: {fileID: 1145256737}
+  - component: {fileID: 1145256741}
   m_Layer: 0
   m_Name: Zombi
   m_TagString: Untagged
@@ -993,19 +993,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1145256737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145256736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d3f870531dc5274e98b9abaa208bd70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 1
 --- !u!50 &1145256738
 Rigidbody2D:
   serializedVersion: 4
@@ -1096,6 +1083,23 @@ Transform:
   - {fileID: 962210434}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1145256741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145256736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3f870531dc5274e98b9abaa208bd70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 0.5
+  m_TestState: 2
+  m_CurrentStateType: 8
+  m_PrevStateType: 8
+  a: 10
 --- !u!1 &1215026135
 GameObject:
   m_ObjectHideFlags: 0
